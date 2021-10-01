@@ -1,0 +1,8 @@
+parameters:
+  - name: 'webhook_url'
+    type: string
+
+steps:
+  - bash: pipelines/templates/scripts/notify.sh
+    workingDirectory: blog-samples
+    displayName: 'Sending Notification'
