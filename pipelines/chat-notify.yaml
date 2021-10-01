@@ -1,0 +1,20 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+  - job: Testing1
+    displayName: 'Test the Component'
+    steps:
+      - checkout: self
+      - script: |
+          cat pipelines/chat-notify.yml
+        workingDirectory: blog-samples
+  - job: ChatAlerts
+    displayName: 'Send Google Chat Alert'
+    dependsOn:
+      - Testing1
+    condition: failed()
+    steps:
+      - template: pipelines/templates/notify-template.yaml
+        parameters:
+          webhook_url: "Enter your webhook url here"
